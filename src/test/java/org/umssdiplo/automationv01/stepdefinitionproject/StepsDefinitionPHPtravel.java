@@ -1,15 +1,18 @@
 package org.umssdiplo.automationv01.stepdefinitionproject;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import org.umssdiplo.automationv01.core.managepage.Login.Login;
 import org.umssdiplo.automationv01.core.managepage.Project.Projects;
+import org.umssdiplo.automationv01.core.managepage.dialogo.RegistroDialogo;
 import org.umssdiplo.automationv01.core.utils.LoadPage;
 import org.umssdiplo.automationv01.core.utils.LoadProjectsPage;
 
 public class StepsDefinitionPHPtravel {
     private Login login;
     private Projects projects;
+    private RegistroDialogo registroDialogo;
 
     @Given("^'PHP travel' page is loaded$")
     public void phpTravelPageIsLoaded() throws Throwable {
@@ -28,11 +31,12 @@ public class StepsDefinitionPHPtravel {
 
     @And("^click on 'new project' button in 'Project' page$")
     public void clickOnNewProjectButtonInProjectPage() {
-        projects.openNewProjectDialog();
+        registroDialogo = projects.clickPlusIcon();
     }
 
-    @And("^click on 'new project' button in 'Project' page2$")
-    public void clickOnNewProjectButton() throws Throwable {
-        projects.clickRegistrarMaquinariaTab();
+
+    @And("^insert \"([^\"]*)\" project name field in 'Dialog Project' page$")
+    public void insertProjectNameFieldInDialogProjectPage(String nameProject) throws Throwable {
+        registroDialogo.insertProjectName(nameProject);
     }
 }

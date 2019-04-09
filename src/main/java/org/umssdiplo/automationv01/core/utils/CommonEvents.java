@@ -94,7 +94,8 @@ public class CommonEvents {
      * @return the text content of the WebElement.
      */
     public static String getTextContent(WebElement webElement) {
-        ManageDriver.getInstance().getWebDriverWait().until(ExpectedConditions.visibilityOf(webElement));
+        //ManageDriver.getInstance().getWebDriverWait().until(ExpectedConditions.visibilityOf(webElement));
+        waitWebElementVisible(webElement);
         return webElement.getText();
     }
 
@@ -116,4 +117,7 @@ public class CommonEvents {
         webElement.sendKeys(Keys.ENTER);
     }
 
+    public static void waitWebElementVisible(WebElement element) {
+        ManageDriver.getInstance().getWebDriverWait().until(ExpectedConditions.visibilityOf(element));
+    }
 }
