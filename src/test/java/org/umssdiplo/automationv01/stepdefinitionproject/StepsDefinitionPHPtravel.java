@@ -1,61 +1,45 @@
 package org.umssdiplo.automationv01.stepdefinitionproject;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import org.umssdiplo.automationv01.core.managepage.Login.Login;
+import cucumber.api.java.en.Then;
+import org.testng.Assert;
+import org.umssdiplo.automationv01.core.managepage.dialogo.ProjectDialog;
 import org.umssdiplo.automationv01.core.managepage.project.Projects;
-import org.umssdiplo.automationv01.core.managepage.dialogo.RegistroDialogo;
-import org.umssdiplo.automationv01.core.utils.LoadPage;
 import org.umssdiplo.automationv01.core.utils.LoadProjectsPage;
 
 public class StepsDefinitionPHPtravel {
-    private Login login;
     private Projects projects;
-    private RegistroDialogo registroDialogo;
-    private RegistroDialogo editDialog;
+    private ProjectDialog registerDialog;
+    private ProjectDialog editDialog;
 
-    @Given("^'PHP travel' page is loaded$")
-    public void phpTravelPageIsLoaded() throws Throwable {
-        login = LoadPage.loginPage();
-    }
 
-    @And("^set my credentials on 'Login' page$")
-    public void setMyCredentialsOnLoginPage() throws Throwable {
-        login.setCredentials();
-    }
-
-    @Given("^'Project' page is loaded$")
-    public void ssiPageIsLoaded() throws Throwable {
+    @Given("^'Projects' page is loaded$")
+    public void projectsPageIsLoaded() throws Throwable {
         projects = LoadProjectsPage.projectPage();
     }
 
-    @And("^click on 'new project' button in 'Project' page$")
-    public void clickOnNewProjectButtonInProjectPage() {
-        registroDialogo = projects.clickPlusIcon();
+    @And("^click on 'plus' button in 'Projects' page$")
+    public void clickOnPlusButtonInProjectsPage() {
+        registerDialog = projects.clickPlusIcon();
     }
 
     @And("^insert \"([^\"]*)\" project name field in 'Dialog Project' page$")
     public void insertProjectNameFieldInDialogProjectPage(String nameProject) throws Throwable {
-        registroDialogo.insertProjectName(nameProject);
+        registerDialog.insertProjectName(nameProject);
     }
 
     @And("^insert \"([^\"]*)\" project description field in 'Dialog Project' page$")
     public void insertProjectDescriptionFieldInDialogProjectPage(String descriptionProject) throws Throwable {
-        registroDialogo.insertProjectDescription(descriptionProject);
+        registerDialog.insertProjectDescription(descriptionProject);
     }
 
     @And("^click on 'save' button in 'Dialog Project' page$")
     public void clickOnSaveButtonInDialogProjectPage() {
-        registroDialogo.clickSave();
+        registerDialog.clickSave();
     }
 
-    @And("^click on 'edit project' button in 'Project' page$")
-    public void clickOnEditProjectButtonInProjectPage() {
-        editDialog = projects.clickEditIcon();
-    }
-
-    @And("^edit \"([^\"]*)\" project name field in 'Dialog Project' page$")
+    @And("^edit \"([^\"]*)\" project name field in 'Edit Dialog Project' page$")
     public void editProjectNameFieldInDialogProjectPage(String projectName) throws Throwable {
         editDialog.insertProjectName(projectName);
     }
@@ -65,13 +49,24 @@ public class StepsDefinitionPHPtravel {
         editDialog.insertProjectDescription(projectDescription);
     }
 
-    @And("^click on 'edit' button in 'Dialog Project' page$")
+    @And("^click on 'save' button in 'Edit Dialog Project' page$")
     public void clickOnEditButtonInDialogProjectPage() {
         editDialog.clickSave();
     }
 
-    @And("^click on 'delete project' button in 'Project' page$")
-    public void clickOnDeleteProjectButtonInProjectPage() {
-        projects.clickDeleteIcon();
+    @And("^click edit project \"([^\"]*)\" in 'Projects' page$")
+    public void clickEditProjectInProjectsPage(String projectName) throws Throwable {
+        editDialog = projects.clickEditIcon(projectName);
+    }
+
+    @And("^delete project \"([^\"]*)\" in 'Projects' page$")
+    public void deleteProjectInProjectsPage(String projectName) throws Throwable {
+        projects.clickDeleteIcon(projectName);
+    }
+
+    @Then("^verify \"([^\"]*)\" project is displayed in 'Project' page$")
+    public void verifyProjectIsDisplayedInProjectPage(String expectedProjectName) throws Throwable {
+        String actualProjectName = projects.getLastProject();
+        Assert.assertEquals(actualProjectName, expectedProjectName);
     }
 }

@@ -1,9 +1,6 @@
 package org.umssdiplo.automationv01.core.utils;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.umssdiplo.automationv01.core.customwebdriver.ManageDriver;
 
@@ -119,5 +116,9 @@ public class CommonEvents {
 
     public static void waitWebElementVisible(WebElement element) {
         ManageDriver.getInstance().getWebDriverWait().until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public static void clickElement(By by) {
+        ManageDriver.getInstance().getWebDriver().findElement(by).click();
     }
 }

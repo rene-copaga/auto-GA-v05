@@ -5,23 +5,23 @@ import org.openqa.selenium.support.FindBy;
 import org.umssdiplo.automationv01.core.managepage.BasePage;
 import org.umssdiplo.automationv01.core.utils.CommonEvents;
 
-public class RegistroDialogo extends BasePage {
+public class ProjectDialog extends BasePage {
     @FindBy(xpath = "//mat-dialog-container")
     private WebElement containerDialog;
 
-    @FindBy(name = "name")
+    @FindBy(xpath = "//input")
     private WebElement projectNameField;
 
-    @FindBy(name = "description")
+    @FindBy(xpath = "//textarea")
     private WebElement descriptionField;
 
-    @FindBy(xpath = "//*[@id=\"mat-dialog-0\"]/app-project/div/form/div[3]/button[1]")
+    @FindBy(xpath = "//mat-dialog-container/app-project/div/form/div/button[1]")
     private WebElement saveBtn;
 
-    @FindBy(xpath = "//*[@id=\"mat-dialog-0\"]/app-project/div/form/div[3]/button[2]")
+    @FindBy(xpath = "//mat-dialog-container/app-project/div/form/div/button[2]")
     private WebElement cancelBtn;
 
-    public RegistroDialogo() {
+    public ProjectDialog() {
         CommonEvents.waitWebElementVisible(containerDialog);
     }
 
