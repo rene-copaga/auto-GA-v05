@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.umssdiplo.automationv01.core.customwebdriver.ManageDriver;
 
@@ -116,4 +117,12 @@ public class CommonEvents {
         webElement.sendKeys(Keys.ENTER);
     }
 
+    public static void hoverOnAndClick(WebElement webElement, WebElement webElementTarget) {
+        Actions action = new Actions(ManageDriver.getInstance().getWebDriver());
+        action.moveToElement(webElement).build().perform();;
+    }
+
+    public static void waitMenuVisible(WebElement menuElement) {
+        ManageDriver.getInstance().getWebDriverWait().until(ExpectedConditions.visibilityOf(menuElement));
+    }
 }
