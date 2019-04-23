@@ -1,9 +1,6 @@
 package org.umssdiplo.automationv01.core.utils;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.umssdiplo.automationv01.core.customwebdriver.ManageDriver;
@@ -117,12 +114,27 @@ public class CommonEvents {
         webElement.sendKeys(Keys.ENTER);
     }
 
-    public static void hoverOnAndClick(WebElement webElement, WebElement webElementTarget) {
+    public static void hoverOn(WebElement webElement) {
         Actions action = new Actions(ManageDriver.getInstance().getWebDriver());
         action.moveToElement(webElement).build().perform();;
     }
 
+    public static void hoverOn(By by) {
+        WebElement element = ManageDriver.getInstance().getWebDriver().findElement(by);
+        hoverOn(element);
+    }
+
     public static void waitMenuVisible(WebElement menuElement) {
         ManageDriver.getInstance().getWebDriverWait().until(ExpectedConditions.visibilityOf(menuElement));
+    }
+
+    public static void clickButton(By by) {
+        WebElement element = ManageDriver.getInstance().getWebDriver().findElement(by);
+        clickButton(element);
+    }
+
+    public static String getTextContent(By by) {
+        WebElement element = ManageDriver.getInstance().getWebDriver().findElement(by);
+        return getTextContent(element);
     }
 }
